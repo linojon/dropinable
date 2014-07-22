@@ -1,0 +1,15 @@
+<div style="float:left; width: 150px;">
+  <% if note.photo? %>
+     <%- byebug %>
+     <%= image_tag note.photo.item.thumb.url %> <br />
+     Photo: <%= note.photo.id %> : <%= note.photo.item.thumb.url %>
+  <% else %>
+    No photo.
+  <% end %>
+
+  <%= note.body %><br />
+  <!-- %= link_to 'edit (raw)', edit_note_path(note, kind: 'raw') %><br / -->
+  <%= link_to 'edit (builder)', edit_note_path(note, kind: 'builder') %><br />
+  <!-- %= link_to 'edit (simple form)', edit_note_path(note, kind: 'simple_form') %><br / -->
+  <!-- %= link_to 'delete', note_path(note), method: :delete % -->
+</div>

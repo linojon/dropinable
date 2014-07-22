@@ -1,0 +1,26 @@
+<%= form_for note, html: { multipart: true } do |f| %>
+
+  <%= f.label 'Body' %>
+  <br />
+
+  <%= f.text_area :body %>
+  <div><%= note.errors[:body].first %></div>
+  <br />
+
+  <div class="photo">
+    <%= f.file_field :photo %>
+    <div><%= note.errors[:photo].first %></div>
+  </div>
+
+  <br />
+
+  <div class="images">
+    <!-- %= f.dropin_file_field :images %>
+    <div>< %= note.errors[:image].first %></div -->
+  </div> 
+
+  <br />
+  <br />
+
+  <%= f.submit  %>
+<% end %>
