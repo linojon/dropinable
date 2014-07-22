@@ -7,8 +7,12 @@ describe Note do
     it { should be_valid }
     it { should validate_presence_of(:body) }
 
+  end
+
+  describe 'photo dropin' do
     describe "validates presence of photo delegates to dropin.file" do
       it "valid when present" do
+        expect(subject.photo).to be_present
         expect(subject).to be_valid
       end
       it "invalid when photo_dropin nil" do
@@ -20,33 +24,22 @@ describe Note do
         expect(subject).to_not be_valid
       end
     end
+
+   describe '#photo' do
+      it 'manages photo' do
+        photo1 = build(:dropin)
+        subject.photo = photo1
+        expect(subject.photo).to eql photo1
+
+        photo2 = build(:dropin)
+        subject.photo = photo2
+        expect(subject.photo).to eql photo2
+
+        subject.photo = nil
+        expect(subject.photo).to be_nil
+      end
+    end
   end
-
-
-  # describe 'photo dropin' do
-  #   describe '#photo' do
-  #     it 'manages photo' do
-  #       photo1 = build(:dropin)
-  #       subject.photo = photo1
-  #       expect(subject.photo).to eql photo1
-
-  #       photo2 = build(:dropin)
-  #       subject.photo = photo2
-  #       expect(subject.photo).to eql photo2
-
-  #       subject.photo = nil
-  #       expect(subject.photo).to be_nil
-  #     end
-  #   end
-
-  #   describe '#photo?' do
-  #     it 'checks whether photo is present' do
-  #       expect(subject.photo?).to be_true
-  #       subject.photo = nil
-  #       expect(subject.photo?).to be_false
-  #     end
-  #   end
-  # end
 
   # describe 'image dropins' do
   #   describe '#images' do
