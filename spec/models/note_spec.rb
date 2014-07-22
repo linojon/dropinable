@@ -6,10 +6,11 @@ describe Note do
   describe 'validations' do
     it { should be_valid }
     it { should validate_presence_of(:body) }
-
   end
 
   describe 'photo dropin' do
+    it { should have_one :photo_dropin }
+
     describe "validates presence of photo delegates to dropin.file" do
       it "valid when present" do
         expect(subject.photo).to be_present
@@ -25,39 +26,69 @@ describe Note do
       end
     end
 
-   describe '#photo' do
-      it 'manages photo' do
-        photo1 = build(:dropin)
-        subject.photo = photo1
-        expect(subject.photo).to eql photo1
+    describe "#photo= file stream" do
+      it "adds a new uploader" do
+        note = Note.new
+        expect(note.photo).to be_nil
+        note.photo = File.open(File.join(Rails.root, '/spec/support/valdez.jpg'))
+        expect(note.photo.class).to eql PhotoUploader
+        expect(note.photo.url).to include('valdez')
+      end
 
-        photo2 = build(:dropin)
-        subject.photo = photo2
-        expect(subject.photo).to eql photo2
-
-        subject.photo = nil
-        expect(subject.photo).to be_nil
+      it "uses existing uploader" do
+        uploader = subject.photo
+        expect(subject.photo.url).to include('obiwan')
+        subject.photo = File.open(File.join(Rails.root, '/spec/support/valdez.jpg'))
+        expect(subject.photo).to eql uploader
+        expect(subject.photo.url).to include('valdez')
       end
     end
+
+    describe "#photo" do
+      it "returns Carrierwave uploader" do
+        expect(subject.photo.class).to eql PhotoUploader
+      end
+    end
+
   end
 
-  # describe 'image dropins' do
-  #   describe '#images' do
-  #     it 'manages images' do
-  #       expect(subject.images?).to be_false
+  describe 'image dropins' do
+    it { should have_many :image_dropins }
 
-  #       image1 = build :dropin
-  #       subject.images << image1
-  #       expect(subject.images).to eql [image1]
+    describe "#image=" do
+      it "adds a new uploader" do
+        expect(subject.images).to be_empty
+        subject.image = File.open(File.join(Rails.root, '/spec/support/valdez.jpg'))
+        expect(subject.images.size).to eql 1
+        uploader = subject.images.first
+        expect(uploader.class).to eql PhotoUploader
+        expect(uploader.url).to include('valdez')
+      end
 
-  #       image2 = build :dropin
-  #       subject.images << image2
-  #       expect(subject.images).to eql [image1, image2]
+      it "doesnt destroy existing uploaders" do
+        subject.image = File.open(File.join(Rails.root, '/spec/support/valdez.jpg'))
+        expect(subject.images.size).to eql 1
+        subject.image = File.open(File.join(Rails.root, '/spec/support/obiwan.jpg'))
+        expect(subject.images.size).to eql 2
+        uploader = subject.images.first
+        expect(subject.images[0].url).to include('valdez')
+        expect(subject.images[1].url).to include('obiwan')
 
-  #       subject.images = nil
-  #       expect(subject.images).to be_blank
-  #     end
-  #   end
-  # end
+      end
+    end
+
+    describe '#images' do
+      before :each do
+        subject.image_dropins << build(:dropin)
+        subject.image_dropins << build(:dropin)
+      end
+      it "returns collection of Carrierwave uploaders" do
+        expect(subject.images.size).to eql 2
+        expect(subject.images[0].class).to eql PhotoUploader
+        expect(subject.images[1].class).to eql PhotoUploader
+      end
+
+    end
+  end
 
 end

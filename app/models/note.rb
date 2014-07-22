@@ -21,7 +21,6 @@ class Note < ActiveRecord::Base
     end
 
     def photo
-      # byebug
       photo_dropin && photo_dropin.file
     end
 
@@ -31,17 +30,13 @@ class Note < ActiveRecord::Base
       as: :dropinable,
       class_name: 'Dropin',
       dependent: :destroy
-    # def image=(open_file)
-    #   # todo: also allow url string (what else?)
-    #   if images?
-    #     image.file = open_file
-    #   else
-    #     build_image scope: 'image', file: open_file
-    #   end
-    # end
 
-    def images
-      image_dropins
+    def images 
+      image_dropins.map(&:file)
+    end
+
+    def image=(open_file)
+      image_dropins.build scope: 'image', file: open_file
     end
 
 end
