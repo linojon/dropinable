@@ -9,6 +9,7 @@ class NotesController < ApplicationController
   end
 
   def create
+  byebug
     @note = Note.new note_params
     if @note.save
       redirect_to notes_url
@@ -22,8 +23,8 @@ class NotesController < ApplicationController
   end
 
   def update
-    @note = Note.find params[:id]
   byebug
+    @note = Note.find params[:id]
     if @note.update_attributes(note_params)
       redirect_to notes_url
     else

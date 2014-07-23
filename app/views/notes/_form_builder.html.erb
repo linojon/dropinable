@@ -10,7 +10,7 @@
   <br />
 
   <div class="photo">
-    <%= f.s3_file_field :photo, class: 'js-s3_file_field' %>
+    <%= f.s3_file_field :photo, class: 'js-s3_file_field', key: 'uploads/tmp/${timestamp}-${filename}' %>
     <div class="progress"><div class="meter" style="background: green; height: 20px; width: 0%"></div></div>
     <div><%= note.errors[:photo].first %></div>
   </div>
