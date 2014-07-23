@@ -11,12 +11,19 @@ class Note < ActiveRecord::Base
 
     # accepts_nested_attributes_for :photo_dropin
 
-    def photo=(open_file)
+    def photo=(file)
       # todo: also allow url string (what else?)
-      if photo_dropin
-        photo_dropin.file = open_file
-      else
-        build_photo_dropin scope: 'photo', file: open_file
+    byebug
+      # if photo_dropin
+      #   photo_dropin.file = open_file
+      # else
+      #   build_photo_dropin scope: 'photo', file: open_file
+      # end
+      dropin = photo_dropin || build_photo_dropin(scope: 'photo')
+      if file.is_a? String
+        dropin.remote_file_url = file
+      else # if ActionDispatch i think
+        dropin.file = file
       end
     end
 

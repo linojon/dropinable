@@ -41,6 +41,7 @@ gem 'spring',        group: :development
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
+gem 's3_file_field'
 gem 'figaro'
 
 group :development, :test do

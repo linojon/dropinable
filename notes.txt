@@ -1,0 +1,44 @@
+
+
+SINGLE DIRECT UPLOAD PROCESS
+
+f.s3_file_upload :photo
+  - js uploads to tmp dir, and puts url into the file field, so its a text field
+  - note.photo attribute can get a url string 
+
+
+MULTI DIRECT UPLOAD PROCESS
+
+f.images[]
+
+form
+  f.photo as: :dropin
+  upload to tmp url
+  field contains tmp url [unit ensure can upload from url]
+
+submit
+  regular carrierwave save
+  
+cancel
+
+reload/validation
+
+cleaning out tmp files (rake task)
+
+
+
+
+DELETE SINGLE
+
+
+DELETE PLURAL
+
+
+UPDATE SINGLE
+
+
+UPDATE A PLURAL
+
+
+EXTEND DROPIN WITH CUSTOM ATTRIBUTES
+

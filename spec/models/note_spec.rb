@@ -44,6 +44,24 @@ describe Note do
       end
     end
 
+    describe "#photo= url" do
+      it "adds a new uploader" do
+        note = Note.new
+        expect(note.photo).to be_nil
+        note.photo = 'http://linowes.com/images/rayna_egg.jpg'
+        expect(note.photo.class).to eql PhotoUploader
+        expect(note.photo.url).to include('rayna')
+      end
+
+      it "uses existing uploader" do
+        uploader = subject.photo
+        expect(subject.photo.url).to include('obiwan')
+        subject.photo = 'http://linowes.com/images/rayna_egg.jpg'
+        expect(subject.photo).to eql uploader
+        expect(subject.photo.url).to include('rayna')
+      end
+    end
+
     describe "#photo" do
       it "returns Carrierwave uploader" do
         expect(subject.photo.class).to eql PhotoUploader

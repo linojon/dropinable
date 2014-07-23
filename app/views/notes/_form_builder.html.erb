@@ -1,5 +1,7 @@
 <%= form_for note, html: { multipart: true } do |f| %>
 
+  <%= hidden_field_tag 'kind', params[:kind] %>
+
   <%= f.label 'Body' %>
   <br />
 
@@ -8,7 +10,8 @@
   <br />
 
   <div class="photo">
-    <%= f.file_field :photo %>
+    <%= f.s3_file_field :photo, class: 'js-s3_file_field' %>
+    <div class="progress"><div class="meter" style="background: green; height: 20px; width: 0%"></div></div>
     <div><%= note.errors[:photo].first %></div>
   </div>
 

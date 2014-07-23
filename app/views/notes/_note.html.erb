@@ -1,7 +1,7 @@
 <div style="float:left; width: 150px;">
-  <% if note.photo? %>
-     <%= image_tag note.photo.file.thumb.url %> <br />
-     Photo: <%= note.photo.id %> : <%= note.photo.file.thumb.url %>
+  <% if note.photo %>
+     <%= image_tag note.photo.thumb.url %> <br />
+     Photo: <%= note.photo.thumb.url %>
   <% else %>
     No photo.
   <% end %>
