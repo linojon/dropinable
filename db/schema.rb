@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722010234) do
+ActiveRecord::Schema.define(version: 20140723192443) do
 
   create_table "dropins", force: true do |t|
     t.integer  "dropinable_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140722010234) do
     t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file_tmp"
   end
 
   create_table "notes", force: true do |t|

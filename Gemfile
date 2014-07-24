@@ -42,6 +42,8 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 gem 's3_file_field'
+gem 'carrierwave_backgrounder'
+gem 'sucker_punch', '~> 1.0'
 gem 'figaro'
 
 group :development, :test do

@@ -3,23 +3,16 @@ class Note < ActiveRecord::Base
   validates :photo, presence: true
 
   #has_dropin :photo, uploader: PhotoUploader
-    has_one :photo_dropin, 
+    has_one :photo, 
       -> { where scope: 'photo'},
       as: :dropinable,
       class_name: 'Dropin',
-      dependent: :destroy
+      dependent: :destroy,
+      validate: true
 
     # accepts_nested_attributes_for :photo_dropin
-
     def photo=(file)
-      # todo: also allow url string (what else?)
-    byebug
-      # if photo_dropin
-      #   photo_dropin.file = open_file
-      # else
-      #   build_photo_dropin scope: 'photo', file: open_file
-      # end
-      dropin = photo_dropin || build_photo_dropin(scope: 'photo')
+      dropin = photo || build_photo(scope: 'photo')
       if file.is_a? String
         dropin.remote_file_url = file
       else # if ActionDispatch i think
@@ -27,23 +20,16 @@ class Note < ActiveRecord::Base
       end
     end
 
-    def photo
-      photo_dropin && photo_dropin.file
-    end
-
   #has_dropins :images
-    has_many :image_dropins,
+    has_many :images,
       -> { where scope: 'image'},
       as: :dropinable,
       class_name: 'Dropin',
-      dependent: :destroy
-
-    def images 
-      image_dropins.map(&:file)
-    end
+      dependent: :destroy,
+      validate: true
 
     def image=(open_file)
-      image_dropins.build scope: 'image', file: open_file
+      images.build scope: 'image', file: open_file
     end
 
 end

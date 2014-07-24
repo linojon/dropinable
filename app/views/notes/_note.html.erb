@@ -1,12 +1,18 @@
-<div style="float:left; width: 150px;">
+<div style="float:left; width: 150px; height: 200px;">
   <% if note.photo %>
-     <%= image_tag note.photo.thumb.url %> <br />
-     Photo: <%= note.photo.thumb.url %>
+    <% if note.photo.processing? %>
+      Processing...
+    <% else %>
+      <%= image_tag note.photo.thumb.url %> 
+    <% end %>
+    <br />
+    <small><%= note.photo.filename %></small>
   <% else %>
-    No photo.
+    No photo
   <% end %>
-
-  <%= note.body %><br />
+  <div>
+    <%= note.body %>
+  </div>
   <!-- %= link_to 'edit (raw)', edit_note_path(note, kind: 'raw') %><br / -->
   <%= link_to 'edit (builder)', edit_note_path(note, kind: 'builder') %><br />
   <!-- %= link_to 'edit (simple form)', edit_note_path(note, kind: 'simple_form') %><br / -->

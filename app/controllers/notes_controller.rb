@@ -9,7 +9,7 @@ class NotesController < ApplicationController
   end
 
   def create
-  byebug
+  # byebug
     @note = Note.new note_params
     if @note.save
       redirect_to notes_url
