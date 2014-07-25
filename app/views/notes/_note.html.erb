@@ -13,6 +13,10 @@
   <div>
     <%= note.body %>
   </div>
+  <% note.images.each do |image| %>
+    <%= image_tag image.thumb.url %>
+  <% end %>
+
   <!-- %= link_to 'edit (raw)', edit_note_path(note, kind: 'raw') %><br / -->
   <%= link_to 'edit (builder)', edit_note_path(note, kind: 'builder') %><br />
   <!-- %= link_to 'edit (simple form)', edit_note_path(note, kind: 'simple_form') %><br / -->

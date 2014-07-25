@@ -51,5 +51,6 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.0'
   gem 'shoulda-matchers', require: false
   gem 'better_errors'
+  gem "binding_of_caller" 
   gem 'byebug'
 end

@@ -1,4 +1,27 @@
+multiple
+  add called for each file
+    - disable submit button
+    - display progress meter (on submit button vs knob)
+    - submit s3 upload
+  done
+    - display thumb, remove link
+    - if error (?) show 'missing.jpg'
+    - if last one, enable submit button
 
+  submit form
+    images = arr ????
+    for each, build new dropin
+
+
+
+
+
+
+form builder helper
+  single vs multiple based on attr name
+
+options?
+  data: { files: , }
 
 SINGLE DIRECT UPLOAD PROCESS
 

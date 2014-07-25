@@ -3,9 +3,10 @@
 #   include ViewHelpers
 # end
 
-# ActiveSupport.on_load :action_view do
-#   ActionView::Helpers::FormBuilder.send(:include, DropInTheBucket::FormBuilder)
-# end
+require 'dropin_form_builder'
+ActiveSupport.on_load :action_view do
+  ActionView::Helpers::FormBuilder.send(:include, DropinFormBuilder)
+end
 
 
 # ##### will be engine.rb ######

@@ -6,5 +6,6 @@ class CreateDropins < ActiveRecord::Migration
       t.string :file
       t.timestamps
     end
+    add_index :dropins, [:dropinable_type, :dropinable_id, :scope], name: 'by_scoped_parent'
   end
 end

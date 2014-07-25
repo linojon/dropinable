@@ -11,15 +11,22 @@
 
   <div class="photo">
     <%= f.s3_file_field :photo, class: 'js-s3_file_field', key: 'uploads/tmp/${timestamp}-${filename}' %>
-    <div class="progress"><div class="meter" style="background: green; height: 20px; width: 0%"></div></div>
+<!--     <div class="progress"><div class="meter" style="background: green; height: 20px; width: 0%"></div></div> -->
+    <div class="dropin_uploader">
+      <div class="dropin_progress"></div>
+      <div class="dropin_thumb">
+        <canvas></canvas>
+      </div>
+    </div>
     <div><%= note.errors[:photo].first %></div>
   </div>
 
   <br />
 
   <div class="images">
-    <!-- %= f.dropin_file_field :images %>
-    <div>< %= note.errors[:image].first %></div -->
+    <%= f.dropin_file_field :images, html: { 'data-multiple' => true } %>
+    <div class="progress"><div class="meter" style="background: green; height: 20px; width: 0%"></div></div>
+    <div><%= note.errors[:image].first %></div>
   </div> 
 
   <br />

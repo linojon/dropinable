@@ -1,6 +1,6 @@
 class Note < ActiveRecord::Base
-  validates :body, presence: true
-  validates :photo, presence: true
+  # validates :body, presence: true
+  # validates :photo, presence: true
 
   #has_dropin :photo, uploader: PhotoUploader
     has_one :photo, 
@@ -28,8 +28,17 @@ class Note < ActiveRecord::Base
       dependent: :destroy,
       validate: true
 
-    def image=(open_file)
-      images.build scope: 'image', file: open_file
+    def images=(file_arr)
+      byebug
+      file_arr.each do |file|
+        byebug
+        dropin = images.build( scope: 'image' )
+        if file.is_a? String
+          dropin.remote_file_url = file
+        else # ActionDispatch
+          dropin.file = file
+        end
+      end
     end
 
 end

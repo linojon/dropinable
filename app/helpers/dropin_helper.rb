@@ -1,18 +1,21 @@
-# require 'mime/types'
+require 'mime/types'
 
-# module DropinHelper
+module DropinHelper
 
-#   def builder_dropin_file_field_tag(attr_name, builder, options={})
-#     options = dropin_file_field_options(builder.object, attr_name, options)
-#     builder.file_field(attr_name, options[:html])
-#   end
+  def builder_dropin_file_field_tag(attr_name, builder, options={})
+  # byebug
+    options = dropin_file_field_options(builder.object, attr_name, options)
+      # options[:html] ||= {}
+      # options[:html].merge! multiple: true
+    builder.s3_file_field(attr_name, options[:html])
+  end
 
-#   def dropin_file_field_tag(field_name, model, relation, options={})
+  # def dropin_file_field_tag(field_name, model, relation, options={})
 #     options = dropin_file_field_options(model, relation, options)
 #     file_field_tag(field_name, options[:html])
 #   end
 
-#   def dropin_file_field_options(model, relation, options={})
+  def dropin_file_field_options(model, relation, options={})
 #     # options[:attachinary] = model.send("#{relation}_metadata")
 
 #     # options[:cloudinary] ||= {}
@@ -33,8 +36,8 @@
 #     # cloudinary_params[:api_key] = api_key
 
 
-#     # options[:html] ||= {}
-#     # options[:html][:class] = [options[:html][:class], 'attachinary-input'].flatten.compact
+    options[:html] ||= {}
+    options[:html][:class] = [options[:html][:class], 'js-dropin_input', 'js-s3_file_field'].flatten.compact
 
 #     # if !options[:html][:accept] && accepted_types = options[:attachinary][:accept]
 #     #   accept = accepted_types.map do |type|
@@ -43,7 +46,7 @@
 #     #   options[:html][:accept] = accept.join(',') unless accept.empty?
 #     # end
 
-#     # options[:html][:multiple] = true unless options[:attachinary][:single]
+    options[:html][:multiple] = true #unless options[:attachinary][:single]
 
 #     # options[:html][:data] ||= {}
 #     # options[:html][:data][:attachinary] = options[:attachinary] || {}
@@ -52,7 +55,7 @@
 #     # options[:html][:data][:form_data] = cloudinary_params.reject{ |k, v| v.blank? }
 #     # options[:html][:data][:url] = cloudinary_upload_url
 
-#     options
-#   end
+    options
+  end
 
-# end
+end
